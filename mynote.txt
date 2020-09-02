@@ -10,4 +10,11 @@ create-react-app myFirstLesson --scripts-version 1.1.5 // will affect only the s
 is the root folder which will be called by the server
 one important file is index.html. we would never add multiple index.html page. If we want to add, we will only need create-react-app again
 #src 
+contains react appleication
 -------
+
+props ..
+is an object that contains all elements from the attribute that is passed from the component
+
+state to get something fomr the inside.
+props from th outside
