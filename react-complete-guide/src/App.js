@@ -1,72 +1,61 @@
-import React, { Component } from "react"; // React is needed to render the component. Component is also required to liad the class
+import React, { useState } from "react"; // React is needed to render the component. Component is also required to liad the class
+//useState to allow use to manage state in a cfuctiona compoennt
 import "./App.css";
 import Person from "./Person/Person";
 
-//first react component
-//the App component used int he index.js
-class App extends Component {
-  //the name is state becaus eit is called inside
-  state = {
+//if we use hooks, the we dont use class but use function like below, and insetad of importing Component, we import useState
+//make a functional component
+const app = (props) => {
+  //this is the hooks, functional component
+  //use state returns two array element
+  //firs elemet is initial, second is function that will allow us to update the state
+  //we can name the constatnt, we crate the name of the function
+  const [personState, setPersonState] = useState({
     person: [
       { name: "inyong marinyong", age: 28 },
       { name: "using state uus", age: 24 },
       { name: "using sate lukasz", age: 33 },
     ],
-    oterState: "this is other state",
-  };
+    otherState: "this is other state",
+  });
 
-  switchNamehandler = () => {
+  //the other way, we can separate the otherstate attribute
+  const [otherstate] = useState("this is other state");
+
+  const switchNamehandler = () => {
     console.log("was clicked!");
-    //DON't DO THIS : this.state.person[0].name = "zen huzaini";
 
-    //special method extended from Component
-    this.setState({
+    //se person state must include al the previous data. if not all data will be overwritten with this. therefore we needd to copy all of the data
+    setPersonState({
       person: [
-        { name: "zen huzaini", age: 24 },
+        {
+          name: "zen huzaini",
+          age: 24,
+          message: "something is here as the paragraph",
+        },
         { name: "lukasz bujlo ", age: 33 },
       ],
+      otherState: personState.otherState,
     });
   };
 
-  //method must return something htm
-  render() {
-    //METHOD 1 ----------
-    return (
-      <div className="App">
-        <h1> Hi I am react app </h1>
-        <p> I hope this one will work </p>
-        <Person name="zen" age="24" />
-        <Person name="lukasz" age="33" />
-        <Person name="inyong" age="36">
-          my hobby is gosipin orang :)
-        </Person>
-        <button onClick={this.switchNamehandler}>Switch Name </button>
-        <Person name={this.state.person[0].name} age={this.state.person[0].age}>
-          my hobby is gosipin orang mulu aja :)
-        </Person>
-        <Person name={this.state.person[1].name} age={this.state.person[1].age}>
-          my hobby is gosipin orang mulu aja :)
-        </Person>
-      </div>
-    ); //we use className, not class because it is used in JS
-    //we can not add something or example <h1> after the div, because wee need to put everything into a one root element
+  return (
+    <div className="App">
+      <h1> Hi I am react app </h1>
+      <p> I hope this one will work </p>
+      <button onClick={switchNamehandler}>Switch Name </button>
+      <Person name={personState.person[0].name} age={personState.person[0].age}>
+        my hobby is gosipin orang mulu aja :)
+      </Person>
+      <Person
+        name={personState.person[1].name}
+        age={personState.person[1].age}
+        iWillClickThis={switc}
+      >
+        my hobby is gosipin orang mulu aja :)
+      </Person>
+    </div>
+  );
+};
 
-    //METHOD2 ------------
-    //WE can also use the from the React class
-    //React.createElement('div', configuration object (we can put null), 'h1', 'Hi, my name is Zen')
-    //we hope to render <div><h1>hi</h1></div>, but cannot do that, because later the <h1> will be seen as a text
-    //So, here is the process.. so we have to do this nesting
-    // return React.createElement(
-    //   "div",
-    //   { className: "App" },
-    //   React.createElement(
-    //     "h1",
-    //     null,
-    //     React.createElement("i", null, "bismillah bisa")
-    //   )
-    // );
-    //a bit complicated isn't it but okay // xd that's why we don't use this. but we use JSX
-  }
-}
-
-export default App;
+export default app;
