@@ -1,0 +1,13 @@
+Section 3: Understanding the
+Base Features & Syntax
+
+#installation :
+npm in create-react-app -g
+//if you have installed it globally, just do 
+create-react-app myFirstLesson --scripts-version 1.1.5 // will affect only the structure of the project 
+
+#public folder
+is the root folder which will be called by the server
+one important file is index.html. we would never add multiple index.html page. If we want to add, we will only need create-react-app again
+#src 
+-------
