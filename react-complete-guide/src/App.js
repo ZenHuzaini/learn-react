@@ -1,6 +1,7 @@
 import React, { Component } from "react"; // React is needed to render the component. Component is also required to liad the class
 import "./App.css";
 import Person from "./Person/Person";
+import Job from "./Job/Job";
 
 //first react component
 //the App component used int he index.js
@@ -15,36 +16,89 @@ class App extends Component {
     oterState: "this is other state",
   };
 
-  switchNamehandler = () => {
+  switchNamehandler = (passTheArgument) => {
     console.log("was clicked!");
     //DON't DO THIS : this.state.person[0].name = "zen huzaini";
 
     //special method extended from Component
     this.setState({
       person: [
-        { name: "zen huzaini", age: 24 },
+        { name: passTheArgument, age: 24 },
         { name: "lukasz bujlo ", age: 33 },
       ],
     });
   };
 
+  newNameChanger = (e) => {
+    this.setState({
+      person: [
+        { name: "Zen", age: 24, job: e.target.value },
+        { name: "lukasz bujlo ", age: 33, job: "team leader" },
+      ],
+    });
+  };
   //method must return something htm
   render() {
+    //create inline style,
+    //it is like object in JS
+    const styleInlineLikeThis = {
+      backgroundColor: "green",
+      font: "inherit white",
+      border: "1x solid blue",
+      padding: "8px",
+    };
     //METHOD 1 ----------
     return (
       <div className="App">
-        <h1> Hi I am react app </h1>
+        <h1>BIndinf Get inpu value</h1>
+        <div className="getInputValue">
+          <input onChange={this.newNameChanger.bind(this)} type="text" />
+          <h1>The input would be {this.state.person[0].name}</h1>
+          <Job changeJob={this.newNameChanger} person={this.state}></Job>
+        </div>
+        <hr />
+        <h1> Hi I am react app - Props, function, accessing </h1>
         <p> I hope this one will work </p>
         <Person name="zen" age="24" />
         <Person name="lukasz" age="33" />
         <Person name="inyong" age="36">
           my hobby is gosipin orang :)
         </Person>
-        <button onClick={this.switchNamehandler}>Switch Name </button>
-        <Person name={this.state.person[0].name} age={this.state.person[0].age}>
+        <br />
+        <hr />
+        <button
+          style={styleInlineLikeThis}
+          onClick={this.switchNamehandler.bind(
+            this,
+            "bagaimana caranya passTheArgument pakai satu  contoh"
+          )}
+        >
+          Switch Name pakai parameter{" "}
+        </button>
+        <button
+          onClick={() =>
+            this.switchNamehandler(
+              "bagaimana caranya passTheArgument pakai arrow function, but arrow functionn will be inefficient"
+            )
+          }
+        >
+          Switch Name pakai parameter dan arrow function{" "}
+        </button>
+        <Person
+          clickUbah={this.switchNamehandler.bind(this, "from here")}
+          name={this.state.person[0].name}
+          age={this.state.person[0].age}
+        >
           my hobby is gosipin orang mulu aja :)
         </Person>
-        <Person name={this.state.person[1].name} age={this.state.person[1].age}>
+        <Person
+          onClick={this.switchNamehandler.bind(
+            this,
+            "change my name with bind is better"
+          )}
+          name={this.state.person[1].name}
+          age={this.state.person[1].age}
+        >
           my hobby is gosipin orang mulu aja :)
         </Person>
       </div>
