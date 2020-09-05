@@ -42,10 +42,11 @@ class App extends Component {
     //create inline style,
     //it is like object in JS
     const styleInlineLikeThis = {
-      backgroundColor: "green",
-      font: "inherit white",
+      backgroundColor: "white",
+      font: "inherit",
       border: "1x solid blue",
       padding: "8px",
+      cursor: "pointer",
     };
     //METHOD 1 ----------
     return (
