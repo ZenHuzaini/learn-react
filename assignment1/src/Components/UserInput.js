@@ -1,9 +1,15 @@
 import React from "react";
+import UserInputCss from "./UserInput.css";
 
 const UserInput = ({ changeText, state }) => {
   return (
     <div className="UserInput">
-      <input onChange={changeText} value={state} type="text" />
+      <input
+        style={UserInputCss}
+        onChange={changeText}
+        value={state}
+        type="text"
+      />
     </div>
   );
 };
