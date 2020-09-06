@@ -25,9 +25,9 @@ const location = [
 class App extends Component {
   state = {
     animal: [
-      { name: "elephant", location: "africa", total: 34 },
-      { name: "Hawk", location: "Asia", total: 80 },
-      { name: "kangooro", location: "Australia", total: 4 },
+      { id: 1, name: "elephant", location: "africa", total: 34 },
+      { id: 2, name: "Hawk", location: "Asia", total: 80 },
+      { id: 3, name: "kangooro", location: "Australia", total: 4 },
     ],
     showAnimals: true,
   };
@@ -38,25 +38,23 @@ class App extends Component {
     this.setState({ showAnimals: !shouldShow });
   };
 
-  changeDesiredName = (event) => {
+  changeDesiredName = (event, id) => {
+    const animalIndex = this.state.animal.findIndex((el) => {
+      return el.id === id;
+    });
+
+    //we pas the object
+    const getAnimal = { ...this.state.animal[animalIndex] };
+    getAnimal.name = event.target.value;
+
+    //get copy of the state
+    //so we don't have to mutate the state
+    const animals = [...this.state.animal];
+    animals[animalIndex] = getAnimal;
+
+    //pass the copy state
     this.setState({
-      animal: [
-        {
-          name: event.target.value,
-          location: location[Math.floor(Math.random() * Math.floor(7))],
-          total: Math.random(),
-        },
-        {
-          name: event.target.value,
-          location: location[Math.floor(Math.random() * Math.floor(7))],
-          total: Math.random(),
-        },
-        {
-          name: animals[Math.floor(Math.random() * Math.floor(7))],
-          location: location[Math.floor(Math.random() * Math.floor(7))],
-          total: Math.random(),
-        },
-      ],
+      animal: animals,
     });
   };
 
@@ -84,7 +82,8 @@ class App extends Component {
   };
 
   deleteElement = (animalIndex) => {
-    const animal = this.state.animal;
+    // const animal = this.state.animal; not a good way, we need to copy the state
+    const animal = [...this.state.animal];
     animal.splice(animalIndex, 1); //to delete
     //Array and object are refferemce type. so we didn't assign new value tot he constant. that's why we can do alter data
     this.setState({ animal });
@@ -99,12 +98,12 @@ class App extends Component {
         <div>
           <h1>Must show things from using outside if using map</h1>
           {/* if we wasnt toreturn a list of array, we must convert the array into a jsx using map and do like this */}
-          {this.state.animal.map(({ name, location, total }, index) => {
+          {this.state.animal.map(({ name, location, total, id }, index) => {
             return (
               <Animal
-                key={Math.floor(Math.random() * Math.floor(70000))}
+                key={id}
                 name={name}
-                changeDesiredName={this.changeDesiredName}
+                changeDesiredName={(event) => this.changeDesiredName(event, id)}
                 // wwe can use ()=> this.ss(ss) for nput or we can use this.dd.bind(this, sss)
                 deleteElement={() => this.deleteElement(index)}
                 location={location}
