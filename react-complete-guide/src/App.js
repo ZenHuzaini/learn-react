@@ -60,11 +60,11 @@ class App extends Component {
         <hr />
         <h1> Hi I am react app - Props, function, accessing </h1>
         <p> I hope this one will work </p>
-        <Person name="zen" age="24" />
-        <Person name="lukasz" age="33" />
-        <Person name="inyong" age="36">
-          my hobby is gosipin orang :)
-        </Person>
+        {/* <Person name="zen" age="24" /> */}
+        {/* <Person name="lukasz" age="33" /> */}
+        {/* <Person name="inyong" age="36"> */}
+        {/* my hobby is gosipin orang :) */}
+        {/* </Person> */}
         <br />
         <hr />
         <button

@@ -1,0 +1,8 @@
+Create a system to : 
+add fruits,
+remove fruits
+read fruits
+delete fruits
+
+show fruits
+unshow fruits
